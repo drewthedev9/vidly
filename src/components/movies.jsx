@@ -15,9 +15,14 @@ class Movies extends Component {
             this.setState({movies: movies});
       }
     render() { 
+        if (this.state.movies.length === 0) 
+            return <p>There are no movies in the database.</p>
+        
         return (
+            
         
         <table className ='table'>
+        <p> showing {this.movie.state.lenght} movies showing in the database.</p>
             <thead>
                 <tr>
                     <th>Title</th>
