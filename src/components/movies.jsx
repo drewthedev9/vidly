@@ -8,8 +8,11 @@ class Movies extends Component {
 
     //   arrow function will allow for the acces to the object and function above
       handleDelete=(movie)=>{
-          console.log(movie);
-
+        //   want to return all of the movies except the deleted one
+        // with filter method.
+          const movies = this.state.movies.filter(m => m._id !== movie._id);
+        //   overides state: movies /w the const movies.
+            this.setState({movies: movies});
       }
     render() { 
         return (
