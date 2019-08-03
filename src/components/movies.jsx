@@ -15,6 +15,15 @@ class Movies extends Component {
         //   overides state: movies /w the const movies.
             this.setState({movies: movies});
       }
+
+      handleLike = (movie) =>{
+       const movies = [...this.state.movies];
+       const index = movies.indexOf(movie);
+       movies[index] = { ...movies[index]};
+       movies[index].liked = !movies[index].liked;
+       this.setState({ movies});
+      };
+    
     render() { 
         const { length: count } = this.state.movies;
 
@@ -45,7 +54,8 @@ class Movies extends Component {
                     <td>{movie.dailyRentalRate}</td>
                     <td>
                     {/*render like component here. */}
-                      <Like liked={movie.liked}/>
+                    {/*movie.liked is in the fake services folder */}
+                      <Like liked={movie.liked} onClick={()=>this.handleLike(movie)}/>
                     </td>
                     <td><button onClick={()=>this.handleDelete(movie)}className = "btn btn-danger btn-sm">Delete</button></td>
                 </tr>)}
