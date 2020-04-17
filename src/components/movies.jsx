@@ -16,7 +16,7 @@ class Movies extends Component {
 
     //   gets the data from server or pur files
       componentDidMount (){
-            const genres = [{name: 'All genres'},...getGenres()]
+            const genres = [{_id:"",name: 'All genres'},...getGenres()]
             this.setState({ movies: getMovies(), genres})
       }
 
@@ -34,7 +34,11 @@ class Movies extends Component {
       }
 
       handleGenreSelect = genre =>{
-          this.setState({ selectedGenre: genre})
+          this.setState({ selectedGenre: genre, currentPage: 1})
+      }
+
+      handleSort = column =>{
+            this.setState({ sortColumn:{path, order:'asc'}})
       }
 
       handleLike = (movie) =>{
@@ -74,6 +78,7 @@ class Movies extends Component {
                movies ={movies}
                onLike={this.handleLike}
                onDelete={this.handleDelete}
+               onSort={this.handleSort}
                />
                 <Pagination 
                 itemsCount={filtered.length}
