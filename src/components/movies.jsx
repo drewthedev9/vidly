@@ -4,6 +4,7 @@ import Moviestable from '../components/moviesTable'
 import Listgroup from './common/listGroup'
 import Pagination from './common/pagination'
 import { paginate} from '../utils/paginate'
+import _ from 'lodash';
 import {getGenres} from '../services/fakeGenreService'
 
 class Movies extends Component {
@@ -11,7 +12,8 @@ class Movies extends Component {
      movies: [],
      genres: [],
      currentPage: 1,
-     pageSize: 4.
+     pageSize: 4,
+     sortColumn: {path: 'title', order: 'asc'}
       };
 
     //   gets the data from server or pur files
@@ -37,8 +39,8 @@ class Movies extends Component {
           this.setState({ selectedGenre: genre, currentPage: 1})
       }
 
-      handleSort = column =>{
-            this.setState({ sortColumn:{path, order:'asc'}})
+      handleSort = sortColumn =>{
+          this.setState({ sortColumn});
       }
 
       handleLike = (movie) =>{
@@ -51,7 +53,11 @@ class Movies extends Component {
     
     render() { 
         const { length: count } = this.state.movies;
-        const {pageSize, currentPage, selectedGenre, movies:allMovies} = this.state;
+        const {pageSize,
+           currentPage, 
+           selectedGenre,
+           sortColumn,
+           movies:allMovies} = this.state;
 
         if (this.state.movies.length === 0) 
             return <p>There are no movies in the database.</p>
@@ -59,7 +65,10 @@ class Movies extends Component {
             const filtered = selectedGenre && selectedGenre._id
              ? allMovies.filter(m => m.genre._id === selectedGenre._id) 
             : allMovies;
-            const movies = paginate(filtered, currentPage, pageSize);
+
+           const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order])
+
+            const movies = paginate(sorted, currentPage, pageSize);
         
         return (
             
@@ -76,6 +85,7 @@ class Movies extends Component {
                 <p> Showing {filtered.length} movies in the database.</p>
                <Moviestable
                movies ={movies}
+               sortColumn={sortColumn}
                onLike={this.handleLike}
                onDelete={this.handleDelete}
                onSort={this.handleSort}
