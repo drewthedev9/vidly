@@ -2,7 +2,7 @@ import axios from "axios";
 import logger from "./logService";
 
 
-
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 // here we make get the get, put,post, delete requests 
 // axios.

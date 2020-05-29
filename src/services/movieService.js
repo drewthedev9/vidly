@@ -1,7 +1,7 @@
 import http from "./httpService.js";
-import {apiUrl} from "../config.json"
 
-const apiEndpoint = apiUrl + '/movies';
+
+const apiEndpoint = '/movies';
 
 // code refactoring
  function MovieUrl(id){

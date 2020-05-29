@@ -1,10 +1,10 @@
 import jwtDecode from 'jwt-decode';
 import http from "./httpService.js";
-import {apiUrl} from "../config.json";
 
 
 
-const apiEndpoint = apiUrl + '/auth';
+
+const apiEndpoint = '/auth';
 const tokenKey ="token";
 
 // calls the jswt function in httpService.
